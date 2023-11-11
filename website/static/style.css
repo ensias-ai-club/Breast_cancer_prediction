@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fcf8f8; /* Light grayish pink */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: #ed008c; /* Pink */
+}
+
+form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fcf8f8; /* Light grayish pink */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 8px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #050000; /* Dark brown */
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #ed008c; /* Pink */
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none
+}
+
+input[type="submit"]:hover {
+    background-color: #f5229d; /* Lighter pink on hover */
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #ed008c; /* Pink */
+}
+
+.prediction {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #e1bdb1; /* Light grayish pink */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+h4 {
+    text-align: center;
+    color: white; /* Pink */
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ed008c; /* Pink */
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
