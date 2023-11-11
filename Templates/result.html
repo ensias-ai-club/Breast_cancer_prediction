@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prédiction du cancer du sein</title>
+</head>
+<body>
+    <h1>Prédiction du cancer du sein</h1>
+    <form method="POST" action="/predict">
+        <label for="radius_mean">Radius Mean</label>
+        <input type="number" name="radius_mean" step="any"><br>
+
+        <label for="texture_mean">Texture Mean</label>
+        <input type="number" name="texture_mean" step="any"><br>
+
+        <label for="perimeter_mean">Perimeter Mean</label>
+        <input type="number" name="perimeter_mean" step="any"><br>
+
+        <label for="area_mean">Area Mean</label>
+        <input type="number" name="area_mean" step="any"><br>
+
+        <label for="smoothness_mean">Smoothness Mean</label>
+        <input type="number" name="smoothness_mean" step="any"><br>
+
+        <!-- Ajoutez les autres caractéristiques nécessaires ici -->
+
+        <input type="submit" value="Prédire">
+    </form>
+</body>
+</html>

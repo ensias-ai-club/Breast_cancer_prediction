@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction du cancer du sein</title>
+</head>
+<body>
+    <h1>Prediction du cancer du sein</h1>
+    <form method="POST" action="/predict">
+        <label for="radius_mean">Rayon moyen :</label>
+        <input type="text" name="radius_mean"><br>
+
+        <label for="texture_mean">Texture moyenne :</label>
+        <input type="text" name="texture_mean"><br>
+
+        <!-- Ajoutez les autres champs de saisie pour les caractéristiques -->
+
+        <input type="submit" value="Prédire">
+    </form>
+    <p>{{ prediction }}</p>
+</body>
+</html>
