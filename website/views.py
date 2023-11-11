@@ -1,50 +1,55 @@
 from flask import Blueprint, render_template, request
 
 import joblib
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
 
 views = Blueprint('views', __name__)
 
-# Charger le modèle SVM pré-entraîné
+# Load the model
 svm = joblib.load('svm_model.pkl')
 
-
-# Charger le modèle de scaler pour normaliser les données
-scaler = StandardScaler()
+# Load the scaler
+scaler = joblib.load('scaler.pkl')
 
 @views.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
 
-@views.route('/predict', methods=['POST'])
-def predict():
     if request.method == 'POST':
-        # Charger le modèle pré-entraîné depuis le notebook
-        svm = SVC()
 
-        # Charger le modèle de scaler
-        scaler = StandardScaler()
+        fields = [
+            'radius_mean', 'radius_worst', 'radius_se',
+            'texture_mean', 'texture_worst', 'texture_se',
+            'perimeter_mean', 'perimeter_worst', 'perimeter_se',
+            'area_mean', 'area_worst', 'area_se',
+            'smoothness_mean', 'smoothness_worst', 'smoothness_se',
+            'compactness_mean', 'compactness_worst', 'compactness_se',
+            'concavity_mean', 'concavity_worst', 'concavity_se',
+            'concave_points_mean', 'concave_points_worst', 'concave_points_se',
+            'symmetry_mean', 'symmetry_worst', 'symmetry_se',
+            'fractal_dimension_mean', 'fractal_dimension_worst', 'fractal_dimension_se'
+        ]
 
-        # Charger les données entrantes depuis le formulaire HTML
-        radius_mean = float(request.form['radius_mean'])
-        texture_mean = float(request.form['texture_mean'])
-        perimeter_mean = float(request.form['perimeter_mean'])
-
-        # Prétraiter les données de la même manière que dans votre notebook
-        input_data = [radius_mean, texture_mean, perimeter_mean, ...]
-
-        # Normaliser les données d'entrée
+        #  Check if all the fields are filled
+        for field in fields:
+            if request.form[field] == '':
+                return render_template('index.html', error="Please fill all the fields")
+       
+        # Get the data from the form
+        input_data = []
+        for field in fields:
+            input_data.append(float(request.form[field]))
+       
+        # Scale the data
         input_data = scaler.transform([input_data])
 
-        # Effectuer la prédiction avec le modèle SVM
+        # Make the prediction
         prediction = svm.predict(input_data)
 
-        # Le résultat de la prédiction est dans la variable "prediction"
+        # Return the result
         if prediction[0] == 1:
-            result = "Maligne"
+            result = "Malignant"
         else:
-            result = "Bénigne"
+            result = "Benign"
 
-        return f"Le diagnostic est : {result}"
+        return render_template('index.html', result=result)
+    
+    return render_template('index.html')
