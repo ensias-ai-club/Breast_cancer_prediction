@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+import pandas as pd
 
 import joblib
 
@@ -10,33 +11,27 @@ svm = joblib.load('svm_model.pkl')
 # Load the scaler
 scaler = joblib.load('scaler.pkl')
 
+# Load the csv file and get the columns
+df = pd.read_csv('breast-cancer.csv')
+columns = df.columns[2:-1].tolist()
+columns_mean = columns[:10]
+columns_se = columns[10:20]
+columns_worst = columns[20:] 
+
 @views.route('/', methods=['GET', 'POST'])
 def index():
 
     if request.method == 'POST':
 
-        fields = [
-            'radius_mean', 'radius_worst', 'radius_se',
-            'texture_mean', 'texture_worst', 'texture_se',
-            'perimeter_mean', 'perimeter_worst', 'perimeter_se',
-            'area_mean', 'area_worst', 'area_se',
-            'smoothness_mean', 'smoothness_worst', 'smoothness_se',
-            'compactness_mean', 'compactness_worst', 'compactness_se',
-            'concavity_mean', 'concavity_worst', 'concavity_se',
-            'concave_points_mean', 'concave_points_worst', 'concave_points_se',
-            'symmetry_mean', 'symmetry_worst', 'symmetry_se',
-            'fractal_dimension_mean', 'fractal_dimension_worst', 'fractal_dimension_se'
-        ]
-
         #  Check if all the fields are filled
-        for field in fields:
-            if request.form[field] == '':
-                return render_template('index.html', error="Please fill all the fields")
+        for column in columns:
+            if request.form[column] == '':
+                return render_template('index.html', error="Please fill all the fields", columns_mean=columns_mean, columns_se=columns_se, columns_worst=columns_worst)
        
         # Get the data from the form
         input_data = []
-        for field in fields:
-            input_data.append(float(request.form[field]))
+        for column in columns:
+            input_data.append(float(request.form[column]))
        
         # Scale the data
         input_data = scaler.transform([input_data])
@@ -50,6 +45,8 @@ def index():
         else:
             result = "Benign"
 
-        return render_template('index.html', result=result)
+        print(result)
+
+        return render_template('index.html', result=result, columns_mean=columns_mean, columns_se=columns_se, columns_worst=columns_worst)
     
-    return render_template('index.html')
+    return render_template('index.html', columns_mean=columns_mean, columns_se=columns_se, columns_worst=columns_worst)
