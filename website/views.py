@@ -13,13 +13,17 @@ scaler = joblib.load('scaler.pkl')
 
 # Load the csv file and get the columns
 df = pd.read_csv('breast-cancer.csv')
-columns = df.columns[2:-1].tolist()
+columns = df.columns[2:].tolist()
 columns_mean = columns[:10]
 columns_se = columns[10:20]
 columns_worst = columns[20:] 
 
 @views.route('/', methods=['GET', 'POST'])
 def index():
+
+    print(columns_mean)
+    print(columns_worst)
+    print(columns_se)
 
     if request.method == 'POST':
 

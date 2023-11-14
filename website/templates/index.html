@@ -37,16 +37,16 @@
       </label>
     </div>
 
-    <form method="POST" action="/">
+    <form method="POST" action="/" id="form">
       <div class="tables">
         <div class="table">
           <table>
             {% for column in columns_mean %}
             <tr>
               <td>
-                <label for="{{ column }}">{{ column.replace("_", " ") }}</label>
+                <label for={{ column }}>{{ column.replace("_", " ") }}</label>
               </td>
-              <td><input type="number" step="0.01" name="{{ column }}" /></td>
+              <td><input type="number" step="0.000001" name={{ column }} id={{ column }} /></td>
             </tr>
             {% endfor %}
           </table>
@@ -57,9 +57,9 @@
             {% for column in columns_se %}
             <tr>
               <td>
-                <label for="{{ column }}">{{ column.replace("_", " ") }}</label>
+                <label for={{ column }}>{{ column.replace("_", " ") }}</label>
               </td>
-              <td><input type="number" step="0.01" name="{{ column }}" /></td>
+              <td><input type="number" step="0.000001" name={{ column }} id={{ column }} /></td>
             </tr>
             {% endfor %}
           </table>
@@ -70,9 +70,9 @@
             {% for column in columns_worst %}
             <tr>
               <td>
-                <label for="{{ column }}">{{ column.replace("_", " ") }}</label>
+                <label for={{ column }}>{{ column.replace("_", " ") }}</label>
               </td>
-              <td><input type="number" step="0.01" name="{{ column }}" /></td>
+              <td><input type="number" step="0.000001" name={{ column }} id={{ column }} /></td>
             </tr>
             {% endfor %}
           </table>
